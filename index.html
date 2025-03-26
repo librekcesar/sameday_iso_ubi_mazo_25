@@ -20,6 +20,7 @@
     <script type="text/javascript" src="sameday_v85_3.js"></script>
     <script type="text/javascript" src="centro_ideal.js"></script>
     <script type="text/javascript" src="polanco.js"></script>
+    <script type="text/javascript" src="tulti.js"></script>
 
 
 
@@ -151,6 +152,24 @@
         }).addTo(map);
 
         ////
+        var tultiLayer = L.geoJSON(tulti, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 6,
+                    fillColor: "green",
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                });
+            },
+            onEachFeature: function (feature, layer) {
+                if (feature.properties) {
+                    layer.bindPopup("Polanco: " + feature.properties.nombre);
+                }
+            }
+        }).addTo(map);
+        ///
 
         ///Primer capa categorizada
 
@@ -242,6 +261,7 @@
         var overlayMaps = {
             "Centro ideal": centroLayer,
             "Polanco": polancoLayer,
+            "Tultitlan": tultiLayer,
             "Cobertura Same day": layerGroup,
             "Tiempos de traslado": layerGroup2
             
